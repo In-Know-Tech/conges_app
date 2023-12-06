@@ -1,0 +1,92 @@
+# To better understand this file read this:
+# https://docs.ionos.space/docs/github-actions-customization/
+
+name: "Deploy Now: Execute Build"
+
+on:
+  workflow_call:
+    inputs:
+      site-url:
+        required: true
+        type: string
+      branch-id:
+        required: true
+        type: string
+
+env:
+  DEPLOYMENT_FOLDER: ./ems
+
+jobs:
+# Please do not rename this job
+  build-project:
+    name: build ems
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # if you add permissions here this needs to be done in the ems-orchestration.yaml as well
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Render templates
+        uses: ionos-deploy-now/template-renderer-action@v2
+        id: template
+        with:
+          input-directory: .deploy-now/ems
+          output-directory: ${{ env.DEPLOYMENT_FOLDER }}
+          intermediate-data-file: ${{ env.DEPLOYMENT_FOLDER }}/.template-renderer-data
+
+      - name: Setup composer
+        uses: php-actions/composer@v6
+        env:
+          APP_ENV: Production
+          APP_URL: ${{ inputs.site-url }}
+          DB_DATABASE: dbs12347171
+          DB_HOST: db5014863092.hosting-data.io
+          DB_PASSWORD: dbPasse21!
+          DB_PORT: 3306
+          DB_USERNAME: dbu5573703
+        with:
+          php_version: '8.1'
+          version: '2'
+          args: --optimize-autoloader --no-dev
+
+      - name: Build PHP assets
+        env:
+          APP_ENV: Production
+          APP_URL: ${{ inputs.site-url }}
+          DB_DATABASE: dbs12347171
+          DB_HOST: db5014863092.hosting-data.io
+          DB_PASSWORD: dbPasse21!
+          DB_PORT: 3306
+          DB_USERNAME: dbu5573703
+        run: php artisan key:generate --force -n
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: v16.x
+
+      - name: Build Node assets
+        env:
+          CI: true
+          SITE_URL: ${{ inputs.site-url }}
+        run: |
+          npm install --global yarn
+          yarn install --frozen-lockfile
+
+# Please do not touch the following action
+      - name: Store deployment content
+        uses: ionos-deploy-now/artifact-action@v1
+        with:
+          api-key: ${{ secrets.IONOS_API_KEY }}
+          service-host: api-us.ionos.space
+          project-id: 9731cf0f-39c3-4e57-8760-a0d55aa0b09a
+          branch-id: ${{ inputs.branch-id }}
+          version: ${{ github.sha }}
+          folder: ${{ env.DEPLOYMENT_FOLDER }}
+          config-file: .deploy-now/ems/config.yaml
+          action: upload
