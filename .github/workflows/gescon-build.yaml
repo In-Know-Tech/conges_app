@@ -68,9 +68,16 @@ jobs:
           yarn install --frozen-lockfile 
 
       - name: Build PHP assets
+        env:
+          APP_ENV: Production
+          APP_URL: ${{ inputs.site-url }}
+          DB_DATABASE: dbs12347171
+          DB_HOST: db5014863092.hosting-data.io
+          DB_PASSWORD: dbPasse21!
+          DB_PORT: 3306
+          DB_USERNAME: dbu5573703
         run: |
           php artisan key:generate --force -n
-          php artisan migrate --seed
           php artisan serve
 
 
