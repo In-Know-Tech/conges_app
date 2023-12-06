@@ -78,7 +78,7 @@ jobs:
           DB_USERNAME: dbu5573703
         run: |
           php artisan key:generate --force -n
-          php artisan serve
+          php artisan migrate --force --seed
 
 
 # Please do not touch the following action
