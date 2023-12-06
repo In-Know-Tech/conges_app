@@ -42,8 +42,8 @@ jobs:
       - name: Setup composer
         uses: php-actions/composer@v6
         env:
+          APP_ENV: Production
           APP_URL: ${{ inputs.site-url }}
-          DB_CONNECTION: mysql
           DB_DATABASE: dbs12347171
           DB_HOST: db5014863092.hosting-data.io
           DB_PASSWORD: dbPasse21!
@@ -53,7 +53,7 @@ jobs:
           php_version: '8.1'
           version: '2'
           args: --optimize-autoloader --no-dev
-
+          
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -69,8 +69,8 @@ jobs:
 
       - name: Build PHP assets
         env:
+          APP_ENV: Production
           APP_URL: ${{ inputs.site-url }}
-          DB_CONNECTION: mysql
           DB_DATABASE: dbs12347171
           DB_HOST: db5014863092.hosting-data.io
           DB_PASSWORD: dbPasse21!
