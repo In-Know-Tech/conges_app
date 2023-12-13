@@ -19,6 +19,7 @@ deploy:
       - chmod -R o+w storage bootstrap/cache
       - php artisan optimize:clear
       - php artisan migrate --force -n
+      - php artisan migrate --seed
       - php artisan storage:link
       - php artisan optimize
       - php artisan up
@@ -43,6 +44,7 @@ deploy:
       - chmod -R o+w storage bootstrap/cache
       - php artisan optimize:clear
       - php artisan migrate --force -n
+      - php artisan migrate db:seed refresh 
       - php artisan storage:link
       - php artisan optimize
       - php artisan up
