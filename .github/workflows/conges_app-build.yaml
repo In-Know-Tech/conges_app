@@ -61,7 +61,7 @@ jobs:
           DB_USERNAME: dbu5573703
         run:  | 
          php artisan key:generate --force -n
-         php artisan migrate --seed --force
+         php artisan migrate --seed --force -n
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
