@@ -42,11 +42,11 @@ jobs:
       - name: Setup composer
         uses: php-actions/composer@v6
         env:
-          DB_DATABASE: dbs12347171
-          DB_HOST: db5014863092.hosting-data.io
-          DB_PASSWORD: dbPasse21!
+          DB_DATABASE: dbs12368496
+          DB_HOST: database-5014888747.app-ionos.space
+          DB_PASSWORD: zI~!gv_viJ-mVC4;CS;hwXu855D^Y!
           DB_PORT: 3306
-          DB_USERNAME: dbu5573703
+          DB_USERNAME: dbu947367
         with:
           php_version: '8.1'
           version: '2'
@@ -54,11 +54,11 @@ jobs:
 
       - name: Build PHP assets
         env:
-          DB_DATABASE: dbs12347171
-          DB_HOST: db5014863092.hosting-data.io
-          DB_PASSWORD: dbPasse21!
+          DB_DATABASE: dbs12368496
+          DB_HOST: database-5014888747.app-ionos.space
+          DB_PASSWORD: zI~!gv_viJ-mVC4;CS;hwXu855D^Y!
           DB_PORT: 3306
-          DB_USERNAME: dbu5573703
+          DB_USERNAME: dbu947367
         run:  | 
           php artisan key:generate --force -n
           php artisan migrate --seed
