@@ -59,9 +59,7 @@ jobs:
           DB_PASSWORD: dbPasse21!
           DB_PORT: 3306
           DB_USERNAME: dbu5573703
-        run:  | 
-         php artisan key:generate --force -n
-         php artisan migrate --seed --force -n
+        run:  php artisan key:generate --force -n
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
