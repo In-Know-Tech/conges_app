@@ -41,6 +41,12 @@ jobs:
 
       - name: Setup composer
         uses: php-actions/composer@v6
+        env:
+          DB_DATABASE: dbs12368496
+          DB_HOST: database-5014888747.app-ionos.space
+          DB_PASSWORD: zI~!gv_viJ-mVC4;CS;hwXu855D^Y!
+          DB_PORT: 3306
+          DB_USERNAME: dbu947367
         with:
           php_version: '8.1'
           version: '2'
@@ -55,6 +61,12 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v3
+        env:
+          DB_DATABASE: dbs12368496
+          DB_HOST: database-5014888747.app-ionos.space
+          DB_PASSWORD: zI~!gv_viJ-mVC4;CS;hwXu855D^Y!
+          DB_PORT: 3306
+          DB_USERNAME: dbu947367
         with:
           node-version: v16.x
 
