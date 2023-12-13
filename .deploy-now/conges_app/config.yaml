@@ -23,7 +23,6 @@ deploy:
       - php artisan view:clear 
       - php artisan optimize:clear
       - php artisan migrate --force -n
-      - php artisan migrate --seed
       - php artisan storage:link
       - php artisan optimize
       - php artisan up
@@ -52,7 +51,6 @@ deploy:
       - php artisan config:clear 
       - php artisan view:clear 
       - php artisan migrate --force -n
-      - php artisan migrate db:seed refresh 
       - php artisan storage:link
       - php artisan optimize
       - php artisan up
